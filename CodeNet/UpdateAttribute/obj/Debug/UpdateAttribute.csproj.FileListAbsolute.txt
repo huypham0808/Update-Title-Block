@@ -21,3 +21,28 @@ D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\UpdateAttribute\obj\Debug\UpdateAtt
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.CopyComplete
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\UpdateAttribute\obj\Debug\UpdateAttribute.dll
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\UpdateAttribute\obj\Debug\UpdateAttribute.pdb
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\start.scr
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\UpdateAttribute.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\UpdateAttribute.pdb
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\EPPlus.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\EPPlus.Interfaces.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\EPPlus.System.Drawing.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Buffers.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.ComponentModel.Annotations.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Memory.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Numerics.Vectors.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\EPPlus.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Buffers.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Memory.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Numerics.Vectors.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.AssemblyReference.cache
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.CoreCompileInputs.cache
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.CopyComplete
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.dll
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.pdb
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.mainForm.resources
+D:\HUY\17.Python\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.GenerateResource.cache

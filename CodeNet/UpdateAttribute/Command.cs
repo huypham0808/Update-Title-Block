@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using AcAp = Autodesk.AutoCAD.ApplicationServices.Application;
 using OfficeOpenXml;
 using System.IO;
+using System.Drawing;
+using System.Windows.Forms;
+using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace UpdateAttribute
 {
@@ -46,9 +49,21 @@ namespace UpdateAttribute
             {
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("LayoutAttributes");
                 worksheet.Cells["A1"].Value = "Layout Name";
+                worksheet.Cells["A1"].AutoFitColumns();
+                worksheet.Cells["A1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                Color colFromHex = ColorTranslator.FromHtml("#B7DEE8");
+                worksheet.Cells["A1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+
                 worksheet.Cells["B1"].Value = "Layout ID";
                 worksheet.Cells["C1"].Value = "PROJECT_TITLE1";
+                worksheet.Cells["C1"].AutoFitColumns();
                 worksheet.Cells["D1"].Value = "PROJECT_TITLE2";
+                worksheet.Cells["D1"].AutoFitColumns();
+                worksheet.Cells["E1"].Value = "PROJECT_TITLE1 Width factor";
+                worksheet.Cells["E1"].AutoFitColumns();
+                worksheet.Cells["F1"].Value = "PROJECT_TITLE2 Width factor";
+                worksheet.Cells["F1"].AutoFitColumns();
+
 
                 for (int i = 0; i < layoutIDList.Count; i++)
                 {
@@ -67,6 +82,8 @@ namespace UpdateAttribute
                         // Find the TitleBlock attribute values
                         string projectTitle1 = string.Empty;
                         string projectTitle2 = string.Empty;
+                        double widthFactorTitle1 = 0.0;
+                        double widthFactorTitle2 = 0.0;
 
                         foreach (ObjectId entityId in layoutSpace)
                         {
@@ -81,10 +98,12 @@ namespace UpdateAttribute
                                     if (attribute != null && attribute.Tag.ToUpper() == "PROJECT_TITLE1")
                                     {
                                         projectTitle1 = attribute.TextString;
+                                        widthFactorTitle1 = attribute.WidthFactor;
                                     }
                                     else if (attribute != null && attribute.Tag.ToUpper() == "PROJECT_TITLE2")
                                     {
                                         projectTitle2 = attribute.TextString;
+                                        widthFactorTitle2= attribute.WidthFactor;
                                     }
                                 }
                             }
@@ -92,10 +111,11 @@ namespace UpdateAttribute
 
                         // Write layout name, layout ID, and attribute values to Excel worksheet
                         worksheet.Cells[i + 2, 1].Value = layout.LayoutName;
-                        worksheet.Cells[i + 2, 2].Value = layoutId.Handle.ToString();
+                        worksheet.Cells[i + 2, 2].Value = "Handle: " + layoutId.Handle.ToString();
                         worksheet.Cells[i + 2, 3].Value = projectTitle1;
                         worksheet.Cells[i + 2, 4].Value = projectTitle2;
-
+                        worksheet.Cells[i + 2, 5].Value = widthFactorTitle1.ToString();
+                        worksheet.Cells[i + 2, 6].Value = widthFactorTitle2.ToString();
                         tr.Commit();
                     }
                 }
@@ -103,8 +123,7 @@ namespace UpdateAttribute
                 FileInfo excelFile = new FileInfo(excelFilePath);
                 excelPackage.SaveAs(excelFile);
                 ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
-            }
-            
+            }           
         }
         [CommandMethod("TESTIMPORTEXCEL")]
         public void ImportExcelFile()
@@ -132,7 +151,6 @@ namespace UpdateAttribute
                     ed.WriteMessage("\nThe 'LayoutAttributes' worksheet was not found in the Excel file.");
                     return;
                 }
-
                 Database db = doc.Database;
 
                 using (Transaction tr = db.TransactionManager.StartTransaction())
@@ -143,6 +161,8 @@ namespace UpdateAttribute
                         string layoutIdString = cell.Offset(0, 1).Text;
                         string projectTitle1 = cell.Offset(0, 2).Text;
                         string projectTitle2 = cell.Offset(0, 3).Text;
+                        string widthFactorString1 = cell.Offset(0, 4).Text;
+                        string widthFactorString2 = cell.Offset(0, 5).Text;
 
                         if (!string.IsNullOrEmpty(layoutName) && !string.IsNullOrEmpty(layoutIdString))
                         {
@@ -188,10 +208,34 @@ namespace UpdateAttribute
                                                 if (attribute.Tag.ToUpper() == "PROJECT_TITLE1")
                                                 {
                                                     attribute.TextString = projectTitle1;
+                                                    if (!string.IsNullOrEmpty(widthFactorString1))
+                                                    {
+                                                        double widthFactor1;
+                                                        if (double.TryParse(widthFactorString1, out widthFactor1))
+                                                        {
+                                                            attribute.WidthFactor = widthFactor1;
+                                                        }
+                                                        else
+                                                        {
+                                                            ed.WriteMessage("\nInvalid width factor value for attribute 'PROJECT_TITLE2'.");
+                                                        }
+                                                    }
                                                 }
                                                 else if (attribute.Tag.ToUpper() == "PROJECT_TITLE2")
                                                 {
                                                     attribute.TextString = projectTitle2;
+                                                    if (!string.IsNullOrEmpty(widthFactorString2))
+                                                    {
+                                                        double widthFactor2;
+                                                        if (double.TryParse(widthFactorString2, out widthFactor2))
+                                                        {
+                                                            attribute.WidthFactor = widthFactor2;
+                                                        }
+                                                        else
+                                                        {
+                                                            ed.WriteMessage("\nInvalid width factor value for attribute 'PROJECT_TITLE2'.");
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -200,12 +244,17 @@ namespace UpdateAttribute
                             }
                         }
                     }
-
                     tr.Commit();
                 }
             }
-
-            ed.WriteMessage("\nLayout attributes updated from Excel file.");
+            //ed.WriteMessage("\nLayout attributes updated from Excel file.");
+            MessageBox.Show("Update successfully for");
+        }
+        [CommandMethod("CallUpdateTTB")]
+        public void CallForm()
+        {
+            mainForm mf = new mainForm();
+            mf.ShowDialog();
         }
     }
     
