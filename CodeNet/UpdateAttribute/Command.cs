@@ -19,8 +19,8 @@ namespace UpdateAttribute
 {
     public class Command
     {
-        [CommandMethod("TESTEXPTOEXCEL")]
-        public void Test()
+        [CommandMethod("EXPTTBTOEXCEL")]
+        public void ExportExcelFile()
         {
             var doc = AcAp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
@@ -47,23 +47,73 @@ namespace UpdateAttribute
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage())
             {
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("LayoutAttributes");
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Title Block");
+                //Header format
+                worksheet.Cells["A1:U1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                //Color colFromHex = ColorTranslator.FromHtml("#B7DEE8");
+                worksheet.Cells["A1:U1"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#df4907"));
+                worksheet.Cells["A1:U1"].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#fff"));
+                worksheet.Cells["A1:U1"].Style.Font.Bold = true;
+                worksheet.Cells["A1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["B1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["D1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["E1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["F1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["G1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["H1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["I1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["J1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["K1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["L1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["M1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["N1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["O1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["P1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["Q1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["R1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["S1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["T1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                worksheet.Cells["U1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+
+
                 worksheet.Cells["A1"].Value = "Layout Name";
                 worksheet.Cells["A1"].AutoFitColumns();
-                worksheet.Cells["A1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                Color colFromHex = ColorTranslator.FromHtml("#B7DEE8");
-                worksheet.Cells["A1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
 
                 worksheet.Cells["B1"].Value = "Layout ID";
-                worksheet.Cells["C1"].Value = "PROJECT_TITLE1";
-                worksheet.Cells["C1"].AutoFitColumns();
-                worksheet.Cells["D1"].Value = "PROJECT_TITLE2";
-                worksheet.Cells["D1"].AutoFitColumns();
-                worksheet.Cells["E1"].Value = "PROJECT_TITLE1 Width factor";
-                worksheet.Cells["E1"].AutoFitColumns();
-                worksheet.Cells["F1"].Value = "PROJECT_TITLE2 Width factor";
-                worksheet.Cells["F1"].AutoFitColumns();
+                
 
+                worksheet.Cells["C1"].Value = "PROJECT_TITLE1";
+                
+
+                worksheet.Cells["D1"].Value = "SHEET_TITLE";
+                worksheet.Cells["D1:D1000"].AutoFitColumns();
+
+                worksheet.Cells["E1"].Value = "PROJECT_TITLE1 Width factor";
+                worksheet.Cells["E1:E1000"].AutoFitColumns();
+
+                worksheet.Cells["F1"].Value = "SHEET_TITLE Width factor";
+                worksheet.Cells["F1:F1000"].AutoFitColumns();
+
+                worksheet.Cells["G1"].Value = "REV_LEVEL_1";
+                worksheet.Cells["H1"].Value = "REV_DATE1";
+                worksheet.Cells["I1"].Value = "REV_DESC1";
+                worksheet.Cells["J1"].Value = "BY";
+
+                worksheet.Cells["K1"].Value = "REV_LEVEL_2";
+                worksheet.Cells["L1"].Value = "REV_DATE2";
+                worksheet.Cells["M1"].Value = "REV_DESC2";
+                worksheet.Cells["N1"].Value = "BY";
+
+                worksheet.Cells["O1"].Value = "REV_LEVEL_3";
+                worksheet.Cells["P1"].Value = "REV_DATE3";
+                worksheet.Cells["Q1"].Value = "REV_DESC3";
+                worksheet.Cells["R1"].Value = "BY";
+
+                worksheet.Cells["S1"].Value = "REV_LEVEL_4";
+                worksheet.Cells["T1"].Value = "REV_DATE4";
+                worksheet.Cells["U1"].Value = "REV_DESC4";
+                worksheet.Cells["V1"].Value = "BY";
 
                 for (int i = 0; i < layoutIDList.Count; i++)
                 {
@@ -89,7 +139,7 @@ namespace UpdateAttribute
                         {
                             Entity entity = tr.GetObject(entityId, OpenMode.ForRead) as Entity;
 
-                            if (entity is BlockReference blockRef && blockRef.Name.Equals("STN_TITLE BOX 24x36", StringComparison.OrdinalIgnoreCase))
+                            if (entity is BlockReference blockRef && blockRef.Name.Equals("STN_TITLE BOX 11x17", StringComparison.OrdinalIgnoreCase))
                             {
                                 foreach (ObjectId attributeId in blockRef.AttributeCollection)
                                 {
@@ -100,7 +150,7 @@ namespace UpdateAttribute
                                         projectTitle1 = attribute.TextString;
                                         widthFactorTitle1 = attribute.WidthFactor;
                                     }
-                                    else if (attribute != null && attribute.Tag.ToUpper() == "PROJECT_TITLE2")
+                                    else if (attribute != null && attribute.Tag.ToUpper() == "SHEET_TITLE")
                                     {
                                         projectTitle2 = attribute.TextString;
                                         widthFactorTitle2= attribute.WidthFactor;
@@ -108,7 +158,7 @@ namespace UpdateAttribute
                                 }
                             }
                         }
-
+                        //DBDictionary layoutDic = tr.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
                         // Write layout name, layout ID, and attribute values to Excel worksheet
                         worksheet.Cells[i + 2, 1].Value = layout.LayoutName;
                         worksheet.Cells[i + 2, 2].Value = "Handle: " + layoutId.Handle.ToString();
@@ -116,16 +166,58 @@ namespace UpdateAttribute
                         worksheet.Cells[i + 2, 4].Value = projectTitle2;
                         worksheet.Cells[i + 2, 5].Value = widthFactorTitle1.ToString();
                         worksheet.Cells[i + 2, 6].Value = widthFactorTitle2.ToString();
+
+                        worksheet.Cells["B3:D1000"].AutoFitColumns();
+                        //Add border for cells
+                        worksheet.Cells[i + 3, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 3].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 4].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 5].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 6].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 7].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 8].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 9].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 10].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 11].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 12].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 13].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 14].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 15].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 16].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 17].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 18].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 20].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 21].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                        worksheet.Cells[i + 3, 22].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+
+
+
+
                         tr.Commit();
                     }
                 }
-                string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "LayoutAttributes.xlsx");
+                var trans = db.TransactionManager.StartTransaction();
+                DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
+                string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock.xlsx");
                 FileInfo excelFile = new FileInfo(excelFilePath);
                 excelPackage.SaveAs(excelFile);
                 ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
+                MessageBox.Show("Export successfully total " +((layoutDic.Count) - 1).ToString() + " layouts" );
+                //FileInfo fi = new FileInfo(excelFilePath);
+                //if(fi.Exists)
+                //{
+                //    System.Diagnostics.Process.Start(excelFilePath);
+                //}    
+                //else
+                //{
+                //    MessageBox.Show("File doesn't exist");
+                //}
+                System.Diagnostics.Process.Start(excelFilePath);
             }           
         }
-        [CommandMethod("TESTIMPORTEXCEL")]
+        [CommandMethod("IMPORTTTBEXCEL")]
         public void ImportExcelFile()
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
@@ -145,7 +237,7 @@ namespace UpdateAttribute
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(excelFilePath)))
             {
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["LayoutAttributes"];
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Title Block"];
                 if (worksheet == null)
                 {
                     ed.WriteMessage("\nThe 'LayoutAttributes' worksheet was not found in the Excel file.");
@@ -197,7 +289,7 @@ namespace UpdateAttribute
                                 {
                                     Entity entity = tr.GetObject(entityId, OpenMode.ForWrite) as Entity;
 
-                                    if (entity is BlockReference blockRef && blockRef.Name.Equals("STN_TITLE BOX 24x36", StringComparison.OrdinalIgnoreCase))
+                                    if (entity is BlockReference blockRef && blockRef.Name.Equals("STN_TITLE BOX 11x17", StringComparison.OrdinalIgnoreCase))
                                     {
                                         foreach (ObjectId attributeId in blockRef.AttributeCollection)
                                         {
@@ -221,7 +313,7 @@ namespace UpdateAttribute
                                                         }
                                                     }
                                                 }
-                                                else if (attribute.Tag.ToUpper() == "PROJECT_TITLE2")
+                                                else if (attribute.Tag.ToUpper() == "SHEET_TITLE")
                                                 {
                                                     attribute.TextString = projectTitle2;
                                                     if (!string.IsNullOrEmpty(widthFactorString2))
