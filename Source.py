@@ -35,23 +35,28 @@ def thuc_hien_cong_viec():
         print(last_row)
 
         list_layout_excel_old = sht.range(
-            "B"+str(first_row)+":B"+str(last_row)).value
+            "A"+str(first_row)+":A"+str(last_row)).value
         list_layout_excel = [x for x in list_layout_excel_old if x is not None]
+        # PROJECT_TITLE 1
         list_TENBV1_excel_old = sht.range(
             "C"+str(first_row)+":C"+str(last_row)).value
         list_TENBV1_excel = [x for x in list_TENBV1_excel_old if x is not None]
+        # SHEET TITLE
         list_TENBV2_excel_old = sht.range(
             "D"+str(first_row)+":D"+str(last_row)).value
         list_TENBV2_excel = [x for x in list_TENBV2_excel_old if x is not None]
-        list_TLBV_excel_old = sht.range(
-            "E"+str(first_row)+":E"+str(last_row)).value
-        list_TLBV_excel = [x for x in list_TLBV_excel_old if x is not None]
-        list_LXB_excel_old = sht.range(
-            "F"+str(first_row)+":F"+str(last_row)).value
-        list_LXB_excel = [x for x in list_LXB_excel_old if x is not None]
+
+        #list_TLBV_excel_old = sht.range(
+            #"E"+str(first_row)+":E"+str(last_row)).value
+        #list_TLBV_excel = [x for x in list_TLBV_excel_old if x is not None]
+        #list_LXB_excel_old = sht.range(
+            #"F"+str(first_row)+":F"+str(last_row)).value
+        #list_LXB_excel = [x for x in list_LXB_excel_old if x is not None]
+        # REV_LEVEL 1
         list_LCS_excel_old = sht.range(
             "G"+str(first_row)+":G"+str(last_row)).value
         list_LCS_excel = [x for x in list_LCS_excel_old if x is not None]
+        # REV_LEVEL 2
         list_BVS_excel_old = sht.range(
             "H"+str(first_row)+":H"+str(last_row)).value
         list_BVS_excel = [x for x in list_BVS_excel_old if x is not None]
@@ -70,7 +75,7 @@ def thuc_hien_cong_viec():
         layouts = doc.Layouts
 
         list_layouts = []
-        for i in layouts:
+        for i in range(len(layouts)):
             if i.name != "Model":
                 list_layouts.append(i)
             if len(list_layouts) == len(list_layout_excel):
@@ -80,22 +85,22 @@ def thuc_hien_cong_viec():
                         if list_layouts[i].name.upper().strip() == list_layout_excel[j].upper().strip():
                             list_elemnent_layout = []
                             for element in list_layouts[i].Block:
-                                if element.EntityName == "AcDbBlockReference" and element.HasAttributes and element.name == "DP_NDBV":
+                                if element.EntityName == "AcDbBlockReference" and element.HasAttributes and element.name == "STN_TITLE BOX 11x17":
                                     list_att = element.GetAttributes()
                                     for att in list_att:
                                         para_name = att.TagString
                                         para_value = att.TextString
                                         if att.TagString == "PROJECT_TITLE1":
                                             att.TextString = list_TENBV1_excel[j]
-                                        elif att.TagString == "PROJECT_TITLE2":
+                                        elif att.TagString == "SHEET_TITLE":
                                             att.TextString = list_TENBV2_excel[j]
-                                        elif att.TagString == "BVS":
+                                        elif att.TagString == "REV_LEVEL1":
                                             att.TextString = list_BVS_excel[j]
-                                        elif att.TagString == "TLBV":
-                                            att.TextString = list_TLBV_excel[j]
-                                        elif att.TagString == "LXB":
-                                            att.TextString = list_LXB_excel[j]
-                                        elif att.TagString == "LCS":
+                                        #elif att.TagString == "TLBV":
+                                            #att.TextString = list_TLBV_excel[j]
+                                        #elif att.TagString == "LXB":
+                                            #att.TextString = list_LXB_excel[j]
+                                        elif att.TagString == "REV_DATE1":
                                             att.TextString = list_LCS_excel[j]
                                     thong_bao = "-Xong khung tên của layout:" + \
                                         str(list_BVS_excel[j])+"\n"
@@ -110,10 +115,10 @@ def thuc_hien_cong_viec():
                 result_text.insert(tk.END, thong_bao1)
                 print(thong_bao1)
                 wb.close()
-                # app = wb.apps.active
-                # app.quit()
+                app = wb.apps.active
+                app.quit()
             else:
-                thong_bao1 = "Số layouts Cad không khớp với Excel"
+                thong_bao1 = "Số layouts Cad không khớp với Excel\n"
                 result_text.insert(tk.END, thong_bao1)
     except:
         thong_bao1 = "Đã xảy ra lỗi. Mời bạn thử lại"
