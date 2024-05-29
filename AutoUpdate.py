@@ -23,7 +23,7 @@ def selectExcelFile():
 
 def thuc_hien_cong_viec():
     try:
-        path_exel = entry1.get()
+        path_exel = entry2.get()
         wb = xw.Book(path_exel)
         sht = wb.sheets[0]
         print(sht.name)
@@ -32,8 +32,67 @@ def thuc_hien_cong_viec():
         lastRow = sht.range("A" + str(sht.cells.last_cell.row)).end("up").row
         print(lastRow)
 
+        listLayoutExcelOld = sht.range("A" + str(firstRow) + ":A" + str(lastRow)).value
+        listLayoutExcel = [x for x in listLayoutExcelOld if x is not None]
+        listProjectTitleOld = sht.range("C" + str(firstRow) + ":C" + str(lastRow)).value
+        listProjectTitle = [x for x in listProjectTitleOld if x is not None]
+        listSheetTitleOld = sht.range("D" + str(firstRow) + ":D" + str(lastRow)).value
+        listSheetTitle = [x for x in listSheetTitleOld if x is not None]
+        #listPrTitleWidtFactorOld = sht.range("E" + str(firstRow) + ":E" + str(lastRow)).value
+        #listPrTitleWidtFactor = [x for x in listPrTitleWidtFactorOld if x is not None]
+        #listShTitleWidthFactorOld = sht.range("F" + str(firstRow) + ":F" + str(lastRow)).value
+        #listShTitleWidthFactor = [x for x in listShTitleWidthFactorOld if x is not None]
+        listRevLevel1Old = sht.range("G" + str(firstRow) + ":G" + str(lastRow)).value
+        listRevLevel1 = [x for x in listRevLevel1Old if x is not None]
+
+        print("----------------")
+        print(listLayoutExcel)
+        acad = win32com.client.Dispatch("AutoCAD.Application")
+        pathCad = entry1.get()
+        print(pathCad)
+        if pathCad == None or pathCad == "":
+            doc = acad.ActiveDocument
+        else:
+            doc = acad.Application.Documents.Open(pathCad)
+        layouts = doc.Layouts
+
+        listLayouts = []
+        for layout in layouts:
+            if layout.name != "Model":
+                listLayouts.append(layout)
+        if len(listLayouts) == len(listLayoutExcel):
+            dem = 0
+            for j in range(len(listLayoutExcel)):
+                for i in range(len(listLayouts)):
+                    if listLayouts[i].name.upper().strip() == listLayoutExcel[j].upper().strip():
+                        listElementLayout = []
+                        for element in listLayouts[i].Block:
+                            if element.EntityName == "AcDbBlockReference" and element.HasAttributes and element.Name == "STN_TITLE BOX 11x17":
+                                listAtt = element.GetAttributes()
+                                for att in listAtt:
+                                    paraName = att.TagString
+                                    paraValue = att.TextString
+                                    if att.TagString == "PROJECT_TITLE1":
+                                        att.TextString = listProjectTitle[j]
+                                    elif att.TagString == "SHEET_TITLE":
+                                        att.TextString = listSheetTitle[j]
+                                    elif att.TagString == "REV_LEVEL1":
+                                        att.TextString = listRevLevel1[j]
+                                thongBao = "-Xong khung ten cua layout: " + str(listLayoutExcel[j] + "\n")
+                                dem = dem + 1
+                                result_text.insert(tk.END, thongBao)
+                                print(thongBao)
+            thongBao1 = "-Xong khung tên của " + str(dem) + "/" + str(len(listLayouts)) + " layouts"
+            result_text.insert(tk.END, "---------------\n")
+            result_text.insert(tk.END, thongBao1)
+            print(thongBao1)
+            wb.close()
+        else:
+            thongBao1 = "Layout number not match with excel"
+            result_text.insert(tk.END, thongBao1)
     except:
         warning1 = "Somethings wrong"
+        result_text.insert(tk.END, warning1)
         print(warning1)
 
 

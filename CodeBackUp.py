@@ -129,84 +129,39 @@ def reset_du_lieu():
 
 
 def ExportData():
-    template = "C:\\Template\\Data - Copy - Copy.xls"
+    template = "C:\\Template\\Data.xls"
     if not os.path.isfile(template):
         print("Template not found")
         return
     acad = win32com.client.Dispatch("AutoCAD.Application")
     doc = acad.ActiveDocument
     layouts = doc.Layouts
-    # fix sort list
-    # layouts.sort()
+
     excelApp = xw.App(visible=False)
     wb = excelApp.books.open(template)
     sh = wb.sheets[0]
     row = 2
 
+    listLayout = []
+    for ly in layouts:
+        sh.range("A" + str(row)).value = ly.name
+        sh.range("B" + str(row)).value = ly.Handle
+        row += 1
     for layout in layouts:
         if layout.name != "Model":
             # sh.range("A" + str(row)).value = layout.TabName
-            sh.range("A" + str(row)).value = layout.name
-            sh.range("B" + str(row)).value = layout.Handle
-            for ele in layout.Block:
+            listLayout.append(layout)
+        for i in range(len(listLayout)):
+            for ele in listLayout[i].Block:
                 if ele.EntityName == "AcDbBlockReference" and ele.HasAttributes and ele.Name == "STN_TITLE BOX 11x17":
                     listAtt = ele.GetAttributes()
                     for att in listAtt:
                         paraName = att.TagString
                         paraValue = att.TextString
-                        if att.TagString == "PROJECT_NAME":
-                            sh.range("C" + str(row)).value = att.TextString
-                            # sh.range("AC" + str(row)).value = att.WidthFactor
-                        elif att.TagString == "PROJECT_LOCATION":
+                        if att.TagString == "PROJECT_TITLE1":
                             sh.range("D" + str(row)).value = att.TextString
-                        elif att.TagString == "PROJECT_TITLE1":
-                            sh.range("E" + str(row)).value = att.TextString
                         elif att.TagString == "SHEET_TITLE":
-                            sh.range("F" + str(row)).value = att.TextString
-                        elif att.TagString == "DESIGN_BY":
-                            sh.range("G" + str(row)).value = att.TextString
-                        elif att.TagString == "DRAWING_BY":
-                            sh.range("H" + str(row)).value = att.TextString
-                        elif att.TagString == "APPROVED_BY":
-                            sh.range("I" + str(row)).value = att.TextString
-                        elif att.TagString == "ST_JOB_NO.":
-                            sh.range("J" + str(row)).value = att.TextString
-                        elif att.TagString == "CONTRACTOR_NAME":
-                            sh.range("K" + str(row)).value = att.TextString
-                        elif att.TagString == "JOB_NO.":
-                            sh.range("L" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_LEVEL1":
-                            sh.range("M" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DATE1":
-                            sh.range("N" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DESC1":
-                            sh.range("O" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_BY1":
-                            sh.range("P" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_LEVEL2":
-                            sh.range("Q" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DATE2":
-                            sh.range("R" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DESC2":
-                            sh.range("S" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_BY2":
-                            sh.range("T" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_LEVEL3":
-                            sh.range("U" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DATE3":
-                            sh.range("V" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DESC3":
-                            sh.range("W" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_BY3":
-                            sh.range("X" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_LEVEL4":
-                            sh.range("Y" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DATE4":
-                            sh.range("Z" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_DESC4":
-                            sh.range("AA" + str(row)).value = att.TextString
-                        elif att.TagString == "REV_BY4":
-                            sh.range("AB" + str(row)).value = att.TextString
+                            sh.range("E" + str(row)).value = att.TextString
             row += 1
     wb.save()
     wb.close()
