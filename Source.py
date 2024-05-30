@@ -35,28 +35,128 @@ def thuc_hien_cong_viec():
         print(last_row)
 
         list_layout_excel_old = sht.range(
-            "B"+str(first_row)+":B"+str(last_row)).value
+            "A"+str(first_row)+":A"+str(last_row)).value
         list_layout_excel = [x for x in list_layout_excel_old if x is not None]
+
+        list_PROJECT_NAME_excel_old = sht.range(
+            "C" + str(first_row) + ":C" + str(last_row)).value
+        list_PROJECT_NAME_excel = [
+            x for x in list_PROJECT_NAME_excel_old if x is not None]
+
+        list_LOCATION_excel_old = sht.range(
+            "D" + str(first_row) + ":D" + str(last_row)).value
+        list_LOCATION_excel = [
+            x for x in list_LOCATION_excel_old if x is not None]
+
         list_PROJECT_TITLE1_excel_old = sht.range(
-            "C"+str(first_row)+":C"+str(last_row)).value
+            "E"+str(first_row)+":E"+str(last_row)).value
         list_PROJECT_TITLE1_excel = [
             x for x in list_PROJECT_TITLE1_excel_old if x is not None]
         list_SHEET_TITLE_excel_old = sht.range(
-            "D"+str(first_row)+":D"+str(last_row)).value
+            "F"+str(first_row)+":F"+str(last_row)).value
         list_SHEET_TITLE_excel = [
             x for x in list_SHEET_TITLE_excel_old if x is not None]
-        # list_TLBV_excel_old = sht.range("E"+str(first_row)+":E"+str(last_row)).value
-        # list_TLBV_excel = [x for x in list_TLBV_excel_old if x is not None]
-        # list_LXB_excel_old = sht.range("F"+str(first_row)+":F"+str(last_row)).value
-        # list_LXB_excel = [x for x in list_LXB_excel_old if x is not None]
+
+        list_DES_excel_old = sht.range(
+            "G" + str(first_row) + ":G" + str(last_row)).value
+        list_DES_excel = [x for x in list_DES_excel_old if x is not None]
+
+        list_DRN_excel_old = sht.range(
+            "H" + str(first_row) + ":H" + str(last_row)).value
+        list_DRN_excel = [x for x in list_DRN_excel_old if x is not None]
+
+        list_CHK_excel_old = sht.range(
+            "I" + str(first_row) + ":I" + str(last_row)).value
+        list_CHK_excel = [x for x in list_CHK_excel_old if x is not None]
+
+        list_IND_excel_old = sht.range(
+            "J" + str(first_row) + ":J" + str(last_row)).value
+        list_IND_excel = [x for x in list_IND_excel_old if x is not None]
+
+        list_CONTRACTOR_excel_old = sht.range(
+            "K" + str(first_row) + ":K" + str(last_row)).value
+        list_CONTRACTOR_excel = [
+            x for x in list_CONTRACTOR_excel_old if x is not None]
+
+        list_JOBNO_excel_old = sht.range(
+            "L" + str(first_row) + ":L" + str(last_row)).value
+        list_JOBNO_excel = [x for x in list_JOBNO_excel_old if x is not None]
+        # REVISON LEVEL 1
         list_REV_LEVEL1_excel_old = sht.range(
-            "E"+str(first_row)+":E"+str(last_row)).value
+            "M"+str(first_row)+":M"+str(last_row)).value
         list_REV_LEVEL1_excel = [
             x for x in list_REV_LEVEL1_excel_old if x is not None]
         list_REV_DATE1_excel_old = sht.range(
-            "F"+str(first_row)+":F"+str(last_row)).value
+            "N"+str(first_row)+":N"+str(last_row)).value
         list_REV_DATE1_excel = [
             x for x in list_REV_DATE1_excel_old if x is not None]
+
+        list_REV_DESC1_excel_old = sht.range(
+            "O" + str(first_row) + ":O" + str(last_row)).value
+        list_REV_DESC1_excel = [
+            x for x in list_REV_DESC1_excel_old if x is not None]
+
+        list_REV_BY1_excel_old = sht.range(
+            "P" + str(first_row) + ":P" + str(last_row)).value
+        list_REV_BY1_excel = [
+            x for x in list_REV_BY1_excel_old if x is not None]
+        # REVISON LEVEL 2
+        list_REV_LEVEL2_excel_old = sht.range(
+            "Q"+str(first_row)+":Q"+str(last_row)).value
+        list_REV_LEVEL2_excel = [
+            x for x in list_REV_LEVEL2_excel_old if x is not None]
+        list_REV_DATE2_excel_old = sht.range(
+            "R"+str(first_row)+":R"+str(last_row)).value
+        list_REV_DATE2_excel = [
+            x for x in list_REV_DATE2_excel_old if x is not None]
+
+        list_REV_DESC2_excel_old = sht.range(
+            "S" + str(first_row) + ":S" + str(last_row)).value
+        list_REV_DESC2_excel = [
+            x for x in list_REV_DESC2_excel_old if x is not None]
+
+        list_REV_BY2_excel_old = sht.range(
+            "T" + str(first_row) + ":T" + str(last_row)).value
+        list_REV_BY2_excel = [
+            x for x in list_REV_BY2_excel_old if x is not None]
+        # REVISON LEVEL 3
+        list_REV_LEVEL3_excel_old = sht.range(
+            "U"+str(first_row)+":U"+str(last_row)).value
+        list_REV_LEVEL3_excel = [
+            x for x in list_REV_LEVEL3_excel_old if x is not None]
+        list_REV_DATE3_excel_old = sht.range(
+            "V"+str(first_row)+":V"+str(last_row)).value
+        list_REV_DATE3_excel = [
+            x for x in list_REV_DATE3_excel_old if x is not None]
+
+        list_REV_DESC3_excel_old = sht.range(
+            "W" + str(first_row) + ":W" + str(last_row)).value
+        list_REV_DESC3_excel = [
+            x for x in list_REV_DESC3_excel_old if x is not None]
+
+        list_REV_BY3_excel_old = sht.range(
+            "X" + str(first_row) + ":X" + str(last_row)).value
+        list_REV_BY3_excel = [
+            x for x in list_REV_BY3_excel_old if x is not None]
+        # REVISON LEVEL 4
+        list_REV_LEVEL4_excel_old = sht.range(
+            "Y"+str(first_row)+":Y"+str(last_row)).value
+        list_REV_LEVEL4_excel = [
+            x for x in list_REV_LEVEL4_excel_old if x is not None]
+        list_REV_DATE4_excel_old = sht.range(
+            "Z"+str(first_row)+":Z"+str(last_row)).value
+        list_REV_DATE4_excel = [
+            x for x in list_REV_DATE4_excel_old if x is not None]
+
+        list_REV_DESC4_excel_old = sht.range(
+            "AA" + str(first_row) + ":AA" + str(last_row)).value
+        list_REV_DESC4_excel = [
+            x for x in list_REV_DESC4_excel_old if x is not None]
+
+        list_REV_BY4_excel_old = sht.range(
+            "AB" + str(first_row) + ":AB" + str(last_row)).value
+        list_REV_BY4_excel = [
+            x for x in list_REV_BY4_excel_old if x is not None]
 
         print("------------")
         print(list_SHEET_TITLE_excel)
@@ -70,11 +170,12 @@ def thuc_hien_cong_viec():
             doc = acad.Application.Documents.Open(path_cad)
         # doc = acad.ActiveDocument
         layouts = doc.Layouts
-
+        # layouts = SortList(layoutsID)
         list_layouts = []
         for i in layouts:
             if i.name != "Model":
                 list_layouts.append(i)
+        # list_layouts.sort()
         if len(list_layouts) == len(list_layout_excel):
             dem = 0
             for j in range(len(list_layout_excel)):
@@ -87,20 +188,67 @@ def thuc_hien_cong_viec():
                                 for att in list_att:
                                     para_name = att.TagString
                                     para_value = att.TextString
-                                    if att.TagString == "PROJECT_TITLE1":
+                                    if att.TagString == "PROJECT_NAME":
+                                        att.TextString = list_PROJECT_NAME_excel[j]
+                                    elif att.TagString == "PROJECT_LOCATION":
+                                        att.TextString = list_LOCATION_excel[j]
+                                    elif att.TagString == "PROJECT_TITLE1":
                                         att.TextString = list_PROJECT_TITLE1_excel[j]
                                     elif att.TagString == "SHEET_TITLE":
                                         att.TextString = list_SHEET_TITLE_excel[j]
-                                    elif att.TagString == "REV_DATE1":
-                                        att.TextString = list_REV_DATE1_excel[j]
+                                    elif att.TagString == "DESIGN_BY":
+                                        att.TextString = list_DES_excel[j]
+                                    elif att.TagString == "DRAWING_BY":
+                                        att.TextString = list_DRN_excel[j]
+                                    elif att.TagString == "APPROVED_BY":
+                                        att.TextString = list_CHK_excel[j]
+                                    elif att.TagString == "ST_JOB_NO.":
+                                        att.TextString = list_IND_excel[j]
+                                    elif att.TagString == "CONTRACTOR_NAME":
+                                        att.TextString = list_CONTRACTOR_excel[j]
+                                    elif att.TagString == "JOB_NO":
+                                        att.TextString = list_JOBNO_excel[j]
+                                        # Revision level 1
                                     elif att.TagString == "REV_LEVEL1":
                                         att.TextString = list_REV_LEVEL1_excel[j]
+                                    elif att.TagString == "REV_DATE1":
+                                        att.TextString = list_REV_DATE1_excel[j]
+                                    elif att.TagString == "REV_DESC1":
+                                        att.TextString = list_REV_DESC1_excel[j]
+                                    elif att.TagString == "REV_BY1":
+                                        att.TextString = list_REV_BY1_excel[j]
+                                        # Revision level 2
+                                    elif att.TagString == "REV_LEVEL2":
+                                        att.TextString = list_REV_LEVEL2_excel[j]
+                                    elif att.TagString == "REV_DATE2":
+                                        att.TextString = list_REV_DATE2_excel[j]
+                                    elif att.TagString == "REV_DESC2":
+                                        att.TextString = list_REV_DESC2_excel[j]
+                                    elif att.TagString == "REV_BY2":
+                                        att.TextString = list_REV_BY2_excel[j]
+                                        # Revision level 3
+                                    elif att.TagString == "REV_LEVEL3":
+                                        att.TextString = list_REV_LEVEL3_excel[j]
+                                    elif att.TagString == "REV_DATE3":
+                                        att.TextString = list_REV_DATE3_excel[j]
+                                    elif att.TagString == "REV_DESC3":
+                                        att.TextString = list_REV_DESC3_excel[j]
+                                    elif att.TagString == "REV_BY3":
+                                        att.TextString = list_REV_BY3_excel[j]
+                                        # Revision level 4
+                                    elif att.TagString == "REV_LEVEL4":
+                                        att.TextString = list_REV_LEVEL4_excel[j]
+                                    elif att.TagString == "REV_DATE4":
+                                        att.TextString = list_REV_DATE4_excel[j]
+                                    elif att.TagString == "REV_DESC4":
+                                        att.TextString = list_REV_DESC4_excel[j]
+                                    elif att.TagString == "REV_BY4":
+                                        att.TextString = list_REV_BY4_excel[j]
                                 thong_bao = "-Updated successfully for layout:" + \
                                     str(list_layout_excel[j])+"\n"
                                 dem = dem + 1
                                 result_text.insert(tk.END, thong_bao)
                                 print(thong_bao)
-                # print("----------------")
             # thong_bao1 = "-Xong khung tên toàn bộ file\n"
             thong_bao1 = "-Updated successfully " + \
                 str(dem)+"/"+str(len(list_PROJECT_TITLE1_excel))+" layouts\n"
@@ -211,6 +359,13 @@ def ExportData():
     wb.save()
     wb.close()
     excelApp.quit()
+
+
+def SortList(listData):
+    custom_order = ["SF0", "SF1", "SF2"]
+    sortedData = sorted(listData, key=lambda x: (
+        x not in custom_order, custom_order.index(x) if x in custom_order else float('inf')))
+    return sortedData
 
 
 # Tạo cửa sổ chính
