@@ -21,7 +21,7 @@ namespace UpdateAttribute
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofD = new OpenFileDialog();
-            ofD.Filter = "Excel Files|*.xlsx";
+            ofD.Filter = "Excel Files|*.xlsx;*.csv";
             ofD.Multiselect = false;
             if (ofD.ShowDialog() != DialogResult.OK) return;
             string filePath = ofD.FileName;
@@ -190,14 +190,17 @@ namespace UpdateAttribute
                             }
                         }
                         tr.Commit();
+                        //tr.Dispose();
                     }
                 }
                 MessageBox.Show("Update successfully!");
+               
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+            //this.Close();
         }
     }
 }

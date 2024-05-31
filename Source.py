@@ -262,10 +262,10 @@ def thuc_hien_cong_viec():
         else:
             thong_bao1 = "Number of layouts from AutoCad NOT MATCH with Excel"
             result_text.insert(tk.END, thong_bao1)
-
     except:
         thong_bao11 = "Something wrong. Please try again!"
         result_text.insert(tk.END, thong_bao11)
+        wb.close()
         print(thong_bao11)
 
 
@@ -296,6 +296,7 @@ def ExportData():
             # sh.range("A" + str(row)).value = layout.TabName
             sh.range("A" + str(row)).value = layout.name
             sh.range("B" + str(row)).value = layout.Handle
+            sh.range("AG" + str(row)).value = layout.TabOrder
             for ele in layout.Block:
                 if ele.EntityName == "AcDbBlockReference" and ele.HasAttributes and ele.Name == "STN_TITLE BOX 11x17":
                     listAtt = ele.GetAttributes()

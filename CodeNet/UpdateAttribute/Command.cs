@@ -95,13 +95,13 @@ namespace UpdateAttribute
 
 
                     worksheet.Cells["D1"].Value = "SHEET_TITLE";
-                    worksheet.Cells["D1:D1000"].AutoFitColumns();
+                    worksheet.Cells["D1:D100"].AutoFitColumns();
 
                     worksheet.Cells["E1"].Value = "PROJECT_TITLE1 Width factor";
-                    worksheet.Cells["E1:E1000"].AutoFitColumns();
+                    worksheet.Cells["E1:E100"].AutoFitColumns();
 
                     worksheet.Cells["F1"].Value = "SHEET_TITLE Width factor";
-                    worksheet.Cells["F1:F1000"].AutoFitColumns();
+                    worksheet.Cells["F1:F100"].AutoFitColumns();
 
                     worksheet.Cells["G1"].Value = "REV_LEVEL_1";
                     worksheet.Cells["H1"].Value = "REV_DATE1";
@@ -123,6 +123,32 @@ namespace UpdateAttribute
                     worksheet.Cells["U1"].Value = "REV_DESC4";
                     worksheet.Cells["V1"].Value = "BY";
 
+                    // Find the TitleBlock attribute values
+                    string projectTitle1 = string.Empty;
+                    string projectTitle2 = string.Empty;
+                    double widthFactorTitle1 = 0.0;
+                    double widthFactorTitle2 = 0.0;
+
+                    string revLevel1 = string.Empty;
+                    string revDate1 = string.Empty;
+                    string revDesc1 = string.Empty;
+                    string revBy1 = string.Empty;
+
+                    string revLevel2 = string.Empty;
+                    string revDate2 = string.Empty;
+                    string revDesc2 = string.Empty;
+                    string revBy2 = string.Empty;
+
+                    string revLevel3 = string.Empty;
+                    string revDate3 = string.Empty;
+                    string revDesc3 = string.Empty;
+                    string revBy3 = string.Empty;
+
+                    string revLevel4 = string.Empty;
+                    string revDate4 = string.Empty;
+                    string revDesc4 = string.Empty;
+                    string revBy4 = string.Empty;
+
                     for (int i = 0; i < layoutIDList.Count; i++)
                     {
                         ObjectId layoutId = layoutIDList[i];
@@ -136,33 +162,6 @@ namespace UpdateAttribute
 
                             // Get the block table record of the current layout
                             BlockTableRecord layoutSpace = tr.GetObject(layout.BlockTableRecordId, OpenMode.ForRead) as BlockTableRecord;
-
-                            // Find the TitleBlock attribute values
-                            string projectTitle1 = string.Empty;
-                            string projectTitle2 = string.Empty;
-                            double widthFactorTitle1 = 0.0;
-                            double widthFactorTitle2 = 0.0;
-
-                            string revLevel1 = string.Empty;
-                            string revDate1 = string.Empty;
-                            string revDesc1 = string.Empty;
-                            string revBy1 = string.Empty;
-
-                            string revLevel2 = string.Empty;
-                            string revDate2 = string.Empty;
-                            string revDesc2 = string.Empty;
-                            string revBy2 = string.Empty;
-
-                            string revLevel3 = string.Empty;
-                            string revDate3 = string.Empty;
-                            string revDesc3 = string.Empty;
-                            string revBy3 = string.Empty;
-
-                            string revLevel4 = string.Empty;
-                            string revDate4 = string.Empty;
-                            string revDesc4 = string.Empty;
-                            string revBy4 = string.Empty;
-
                             foreach (ObjectId entityId in layoutSpace)
                             {
                                 Entity entity = tr.GetObject(entityId, OpenMode.ForRead) as Entity;
@@ -270,7 +269,7 @@ namespace UpdateAttribute
                             worksheet.Cells[i + 2, 21].Value = revDesc4.ToString();
                             worksheet.Cells[i + 2, 22].Value = revBy4.ToString();
 
-                            worksheet.Cells["B3:D1000"].AutoFitColumns();
+                            worksheet.Cells["B3:D100"].AutoFitColumns();
                             //Add border for cells
                             worksheet.Cells[i + 3, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
                             worksheet.Cells[i + 3, 2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
@@ -296,6 +295,7 @@ namespace UpdateAttribute
                             worksheet.Cells[i + 3, 22].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
 
                             tr.Commit();
+                            tr.Dispose();
 
                         }
                     }
@@ -334,16 +334,16 @@ namespace UpdateAttribute
 
             // Load the Excel file and update attribute values
             //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(excelFilePath)))
+            try
             {
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Title Block"];
-                if (worksheet == null)
+                using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(excelFilePath)))
                 {
-                    ed.WriteMessage("\nThe 'Title Block' worksheet was not found in the Excel file.");
-                    return;
-                }
-                try
-                {
+                    ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Title Block"];
+                    if (worksheet == null)
+                    {
+                        ed.WriteMessage("\nThe 'Title Block' worksheet was not found in the Excel file.");
+                        return;
+                    }
                     using (Transaction tr = db.TransactionManager.StartTransaction())
                     {
                         foreach (var cell in worksheet.Cells["A2:V" + worksheet.Dimension.End.Row])
@@ -354,6 +354,26 @@ namespace UpdateAttribute
                             string projectTitle2 = cell.Offset(0, 3).Text;
                             string widthFactorString1 = cell.Offset(0, 4).Text;
                             string widthFactorString2 = cell.Offset(0, 5).Text;
+
+                            string revLevel1 = cell.Offset(0, 6).Text;
+                            string revDate1 = cell.Offset(0, 7).Text;
+                            string revDesc1 = cell.Offset(0, 8).Text;
+                            string revBy1 = cell.Offset(0, 9).Text;
+
+                            string revLevel2 = cell.Offset(0, 10).Text;
+                            string revDate2 = cell.Offset(0, 11).Text;
+                            string revDesc2 = cell.Offset(0, 12).Text;
+                            string revBy2 = cell.Offset(0, 13).Text;
+
+                            string revLevel3 = cell.Offset(0, 14).Text;
+                            string revDate3 = cell.Offset(0, 15).Text;
+                            string revDesc3 = cell.Offset(0, 16).Text;
+                            string revBy3 = cell.Offset(0, 17).Text;
+
+                            string revLevel4 = cell.Offset(0, 18).Text;
+                            string revDate4 = cell.Offset(0, 19).Text;
+                            string revDesc4 = cell.Offset(0, 20).Text;
+                            string revBy4 = cell.Offset(0, 21).Text;
 
                             if (!string.IsNullOrEmpty(layoutName) && !string.IsNullOrEmpty(layoutIdString))
                             {
@@ -371,7 +391,7 @@ namespace UpdateAttribute
                                     Layout layout = tr.GetObject(layoutId, OpenMode.ForWrite) as Layout;
 
                                     // Switch to the layout and activate it
-                                    LayoutManager.Current.CurrentLayout = layout.LayoutName;
+                                    //LayoutManager.Current.CurrentLayout = layout.LayoutName;
 
                                     // Get the block table record of the current layout
                                     BlockTableRecord layoutSpace = tr.GetObject(layout.BlockTableRecordId, OpenMode.ForWrite) as BlockTableRecord;
@@ -391,48 +411,69 @@ namespace UpdateAttribute
                                                 {
                                                     //double widthFactor1a;
                                                     switch (attribute.Tag.ToUpper())
-                                                    {                                                      
+                                                    {
                                                         case "PROJECT_TITLE1":
                                                             attribute.TextString = projectTitle1;
                                                             //attribute.WidthFactor = widthFactor1a;
                                                             break;
+                                                        case "SHEET_TITLE":
+                                                            attribute.TextString = projectTitle2;
+                                                            attribute.WidthFactor = Double.Parse(widthFactorString2);
+                                                            break;
+                                                        case "REV_LEVEL1":
+                                                            attribute.TextString = revLevel1;
+                                                            break;
+                                                        case "REV_DATE1":
+                                                            attribute.TextString = revDate1;
+                                                            break;
+                                                        case "REV_DESC1":
+                                                            attribute.TextString = revDesc1;
+                                                            break;
+                                                        case "REV_BY1":
+                                                            attribute.TextString = revBy1;
+                                                            break;
+                                                        //Level 2
+                                                        case "REV_LEVEL2":
+                                                            attribute.TextString = revLevel2;
+                                                            break;
+                                                        case "REV_DATE2":
+                                                            attribute.TextString = revDate2;
+                                                            break;
+                                                        case "REV_DESC2":
+                                                            attribute.TextString = revDesc2;
+                                                            break;
+                                                        case "REV_BY2":
+                                                            attribute.TextString = revBy2;
+                                                            break;
+                                                        //Level 3
+                                                        case "REV_LEVEL3":
+                                                            attribute.TextString = revLevel3;
+                                                            break;
+                                                        case "REV_DATE3":
+                                                            attribute.TextString = revDate3;
+                                                            break;
+                                                        case "REV_DESC3":
+                                                            attribute.TextString = revDesc3;
+                                                            break;
+                                                        case "REV_BY3":
+                                                            attribute.TextString = revBy3;
+                                                            break;
+                                                        //Level 4
+                                                        case "REV_LEVEL4":
+                                                            attribute.TextString = revLevel4;
+                                                            break;
+                                                        case "REV_DATE4":
+                                                            attribute.TextString = revDate4;
+                                                            break;
+                                                        case "REV_DESC4":
+                                                            attribute.TextString = revDesc4;
+                                                            break;
+                                                        case "REV_BY4":
+                                                            attribute.TextString = revBy4;
+                                                            break;
+                                                        default:
+                                                            break;
                                                     }
-                                                         
-                                                    if (attribute.Tag.ToUpper() == "PROJECT_TITLE1")
-                                                    {
-                                                        attribute.TextString = projectTitle1;
-                                                        
-                                                        if (!string.IsNullOrEmpty(widthFactorString1))
-                                                        {
-                                                            double widthFactor1;
-
-                                                            if (double.TryParse(widthFactorString1, out widthFactor1))
-                                                            {
-                                                                attribute.WidthFactor = widthFactor1; 
-                                                            }
-                                                            else
-                                                            {
-                                                                ed.WriteMessage("\nInvalid width factor value for attribute 'PROJECT_TITLE2'.");
-                                                            }
-                                                        }
-                                                                                                             
-                                                    }
-                                                    else if (attribute.Tag.ToUpper() == "SHEET_TITLE")
-                                                    {
-                                                        attribute.TextString = projectTitle2;
-                                                        if (!string.IsNullOrEmpty(widthFactorString2))
-                                                        {
-                                                            double widthFactor2;
-                                                            if (double.TryParse(widthFactorString2, out widthFactor2))
-                                                            {
-                                                                attribute.WidthFactor = widthFactor2; 
-                                                            }
-                                                            else
-                                                            {
-                                                                ed.WriteMessage("\nInvalid width factor value for attribute 'PROJECT_TITLE2'.");
-                                                            }
-                                                        }                                                                            
-                                                    }                                                    
                                                 }
                                             }
                                         }
@@ -445,13 +486,14 @@ namespace UpdateAttribute
                         MessageBox.Show("Update successfully");
                     }
                 }
-                catch
-                {
-                    UnloadExcel();
-                    ed.WriteMessage("Fail");
-                    return;
-                }              
-            }          
+            }
+            catch
+            {
+                UnloadExcel();
+                ed.WriteMessage("Fail");
+                return;
+            }
+          
         }
         private void UnloadExcel()
         {
@@ -469,7 +511,7 @@ namespace UpdateAttribute
         public void CallForm()
         {
             mainForm mf = new mainForm();
-            mf.ShowDialog();
+            mf.Show();
         }
         [CommandMethod("UA")]
         public void UpdateAttribute()
