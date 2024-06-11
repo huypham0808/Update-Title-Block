@@ -106,22 +106,22 @@ namespace UpdateAttribute
                     worksheet.Cells["G1"].Value = "REV_LEVEL_1";
                     worksheet.Cells["H1"].Value = "REV_DATE1";
                     worksheet.Cells["I1"].Value = "REV_DESC1";
-                    worksheet.Cells["J1"].Value = "BY";
+                    worksheet.Cells["J1"].Value = "BY1";
 
                     worksheet.Cells["K1"].Value = "REV_LEVEL_2";
                     worksheet.Cells["L1"].Value = "REV_DATE2";
                     worksheet.Cells["M1"].Value = "REV_DESC2";
-                    worksheet.Cells["N1"].Value = "BY";
+                    worksheet.Cells["N1"].Value = "BY2";
 
                     worksheet.Cells["O1"].Value = "REV_LEVEL_3";
                     worksheet.Cells["P1"].Value = "REV_DATE3";
                     worksheet.Cells["Q1"].Value = "REV_DESC3";
-                    worksheet.Cells["R1"].Value = "BY";
+                    worksheet.Cells["R1"].Value = "BY3";
 
                     worksheet.Cells["S1"].Value = "REV_LEVEL_4";
                     worksheet.Cells["T1"].Value = "REV_DATE4";
                     worksheet.Cells["U1"].Value = "REV_DESC4";
-                    worksheet.Cells["V1"].Value = "BY";
+                    worksheet.Cells["V1"].Value = "BY4";
 
                     // Find the TitleBlock attribute values
                     string projectTitle1 = string.Empty;
@@ -413,24 +413,24 @@ namespace UpdateAttribute
                                                     switch (attribute.Tag.ToUpper())
                                                     {
                                                         case "PROJECT_TITLE1":
-                                                            attribute.TextString = projectTitle1;
+                                                            attribute.TextString = projectTitle1.Trim();
                                                             //attribute.WidthFactor = widthFactor1a;
                                                             break;
                                                         case "SHEET_TITLE":
-                                                            attribute.TextString = projectTitle2;
+                                                            attribute.TextString = projectTitle2.Trim();
                                                             attribute.WidthFactor = Double.Parse(widthFactorString2);
                                                             break;
                                                         case "REV_LEVEL1":
-                                                            attribute.TextString = revLevel1;
+                                                            attribute.TextString = revLevel1.Trim();
                                                             break;
                                                         case "REV_DATE1":
-                                                            attribute.TextString = revDate1;
+                                                            attribute.TextString = revDate1.Trim();
                                                             break;
                                                         case "REV_DESC1":
-                                                            attribute.TextString = revDesc1;
+                                                            attribute.TextString = revDesc1.Trim().ToUpper();
                                                             break;
                                                         case "REV_BY1":
-                                                            attribute.TextString = revBy1;
+                                                            attribute.TextString = revBy1.Trim().ToUpper();
                                                             break;
                                                         //Level 2
                                                         case "REV_LEVEL2":
@@ -440,10 +440,10 @@ namespace UpdateAttribute
                                                             attribute.TextString = revDate2;
                                                             break;
                                                         case "REV_DESC2":
-                                                            attribute.TextString = revDesc2;
+                                                            attribute.TextString = revDesc2.Trim().ToUpper();
                                                             break;
                                                         case "REV_BY2":
-                                                            attribute.TextString = revBy2;
+                                                            attribute.TextString = revBy2.Trim().ToUpper();
                                                             break;
                                                         //Level 3
                                                         case "REV_LEVEL3":
@@ -453,10 +453,10 @@ namespace UpdateAttribute
                                                             attribute.TextString = revDate3;
                                                             break;
                                                         case "REV_DESC3":
-                                                            attribute.TextString = revDesc3;
+                                                            attribute.TextString = revDesc3.Trim().ToUpper();
                                                             break;
                                                         case "REV_BY3":
-                                                            attribute.TextString = revBy3;
+                                                            attribute.TextString = revBy3.Trim().ToUpper();
                                                             break;
                                                         //Level 4
                                                         case "REV_LEVEL4":
@@ -466,10 +466,10 @@ namespace UpdateAttribute
                                                             attribute.TextString = revDate4;
                                                             break;
                                                         case "REV_DESC4":
-                                                            attribute.TextString = revDesc4;
+                                                            attribute.TextString = revDesc4.Trim().ToUpper();
                                                             break;
                                                         case "REV_BY4":
-                                                            attribute.TextString = revBy4;
+                                                            attribute.TextString = revBy4.Trim().ToUpper();
                                                             break;
                                                         default:
                                                             break;
@@ -481,11 +481,13 @@ namespace UpdateAttribute
                                 }
                             }
                         }
-                        UnloadExcel();
+                        
                         tr.Commit();
-                        MessageBox.Show("Update successfully");
+                   
                     }
                 }
+                UnloadExcel();
+                MessageBox.Show("Update successfully");
             }
             catch
             {
