@@ -48,7 +48,7 @@ namespace UpdateAttribute
                 excelcon.Close();
                 dataDrawingGrid.DataSource = dt;
             }
-            catch (System.Exception ex)
+            catch
             {
                 MessageBox.Show("Something went wrong. Please try again!","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -57,7 +57,6 @@ namespace UpdateAttribute
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
-            Editor ed = doc.Editor;
             Database db = doc.Database;
 
             try
@@ -65,8 +64,7 @@ namespace UpdateAttribute
                 using(Transaction tr = db.TransactionManager.StartTransaction())
                 {
                     foreach(DataGridViewRow row in dataDrawingGrid.Rows)
-                    {
-                        //if(dataDrawingGrid[0, e.Row])
+                    {                       
                         string layoutName = row.Cells["Layout Name"].Value.ToString();
                         string layoutIdString = row.Cells["Layout ID"].Value.ToString();
                         string projectTitle1 = row.Cells["PROJECT_TITLE1"].Value.ToString();
@@ -204,10 +202,6 @@ namespace UpdateAttribute
                     tr.Commit();
                 }
             }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show("Fail: "+ ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             finally
             {
                 MessageBox.Show("Update successfully !", "Update TitleBlock", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -226,8 +220,8 @@ namespace UpdateAttribute
             {
                 titleBlockName = "STN_TITLE BOX 11x17";
             }
-
             return titleBlockName;
         }
+        //private Task ProcessDate
     }
 }

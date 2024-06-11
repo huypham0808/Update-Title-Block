@@ -45,7 +45,7 @@ namespace UpdateAttribute
                         layoutIDList = layoutIDList.OrderBy(id => ((Layout)tr.GetObject(id, OpenMode.ForRead)).TabOrder).ToList();
                         Layout layout = tr.GetObject(entry.Value, OpenMode.ForRead) as Layout;
                         if (layout.LayoutName.Equals("Model", StringComparison.OrdinalIgnoreCase)) continue;
-
+                        //if (layout.LayoutName == "Model") continue;
                         layoutNameList.Add(layout.LayoutName);
                     }
                     tr.Commit();
@@ -61,28 +61,28 @@ namespace UpdateAttribute
                     worksheet.Cells["A1:V1"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#df4907"));
                     worksheet.Cells["A1:V1"].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#fff"));
                     worksheet.Cells["A1:V1"].Style.Font.Bold = true;
-                    worksheet.Cells["A1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["B1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["D1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["E1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["F1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["G1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["H1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["I1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["J1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["K1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["L1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["M1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["N1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["O1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["P1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["Q1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["R1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["S1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["T1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["U1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
-                    worksheet.Cells["V1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thick);
+                    worksheet.Cells["A1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["B1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["D1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["E1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["F1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["G1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["H1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["I1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["J1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["K1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["L1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["M1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["N1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["O1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["P1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["Q1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["R1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["S1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["T1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["U1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    worksheet.Cells["V1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
 
 
                     worksheet.Cells["A1"].Value = "Layout Name";
@@ -104,8 +104,14 @@ namespace UpdateAttribute
                     worksheet.Cells["F1:F100"].AutoFitColumns();
 
                     worksheet.Cells["G1"].Value = "REV_LEVEL_1";
+                    worksheet.Cells["G1:G100"].AutoFitColumns();
+
                     worksheet.Cells["H1"].Value = "REV_DATE1";
+                    worksheet.Cells["H1:H100"].AutoFitColumns();
+
                     worksheet.Cells["I1"].Value = "REV_DESC1";
+                    worksheet.Cells["I1:I100"].AutoFitColumns();
+
                     worksheet.Cells["J1"].Value = "BY1";
 
                     worksheet.Cells["K1"].Value = "REV_LEVEL_2";
@@ -159,7 +165,7 @@ namespace UpdateAttribute
 
                             // Switch to the layout and activate it
                             LayoutManager.Current.CurrentLayout = layout.LayoutName;
-
+                            if (layout.LayoutName.Equals("Model", StringComparison.OrdinalIgnoreCase)) continue;
                             // Get the block table record of the current layout
                             BlockTableRecord layoutSpace = tr.GetObject(layout.BlockTableRecordId, OpenMode.ForRead) as BlockTableRecord;
                             foreach (ObjectId entityId in layoutSpace)
@@ -242,57 +248,57 @@ namespace UpdateAttribute
                             }
                             //DBDictionary layoutDic = tr.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
                             // Write layout name, layout ID, and attribute values to Excel worksheet
-                            worksheet.Cells[i + 2, 1].Value = layout.LayoutName;
-                            worksheet.Cells[i + 2, 2].Value = "Handle: " + layoutId.Handle.ToString();
-                            worksheet.Cells[i + 2, 3].Value = projectTitle1;
-                            worksheet.Cells[i + 2, 4].Value = projectTitle2;
-                            worksheet.Cells[i + 2, 5].Value = widthFactorTitle1.ToString();
-                            worksheet.Cells[i + 2, 6].Value = widthFactorTitle2.ToString();
+                            worksheet.Cells[i + 1, 1].Value = layout.LayoutName;
+                            worksheet.Cells[i + 1, 2].Value = "Handle: " + layoutId.Handle.ToString();
+                            worksheet.Cells[i + 1, 3].Value = projectTitle1;
+                            worksheet.Cells[i + 1, 4].Value = projectTitle2;
+                            worksheet.Cells[i + 1, 5].Value = widthFactorTitle1.ToString();
+                            worksheet.Cells[i + 1, 6].Value = widthFactorTitle2.ToString();
 
-                            worksheet.Cells[i + 2, 7].Value = revLevel1.ToString();
-                            worksheet.Cells[i + 2, 8].Value = revDate1.ToString();
-                            worksheet.Cells[i + 2, 9].Value = revDesc1.ToString();
-                            worksheet.Cells[i + 2, 10].Value = revBy1.ToString();
+                            worksheet.Cells[i + 1, 7].Value = revLevel1.ToString();
+                            worksheet.Cells[i + 1, 8].Value = revDate1.ToString();
+                            worksheet.Cells[i + 1, 9].Value = revDesc1.ToString();
+                            worksheet.Cells[i + 1, 10].Value = revBy1.ToString();
 
-                            worksheet.Cells[i + 2, 11].Value = revLevel2.ToString();
-                            worksheet.Cells[i + 2, 12].Value = revDate2.ToString();
-                            worksheet.Cells[i + 2, 13].Value = revDesc2.ToString();
-                            worksheet.Cells[i + 2, 14].Value = revBy2.ToString();
+                            worksheet.Cells[i + 1, 11].Value = revLevel2.ToString();
+                            worksheet.Cells[i + 1, 12].Value = revDate2.ToString();
+                            worksheet.Cells[i + 1, 13].Value = revDesc2.ToString();
+                            worksheet.Cells[i + 1, 14].Value = revBy2.ToString();
 
-                            worksheet.Cells[i + 2, 15].Value = revLevel3.ToString();
-                            worksheet.Cells[i + 2, 16].Value = revDate3.ToString();
-                            worksheet.Cells[i + 2, 17].Value = revDesc3.ToString();
-                            worksheet.Cells[i + 2, 18].Value = revBy3.ToString();
+                            worksheet.Cells[i + 1, 15].Value = revLevel3.ToString();
+                            worksheet.Cells[i + 1, 16].Value = revDate3.ToString();
+                            worksheet.Cells[i + 1, 17].Value = revDesc3.ToString();
+                            worksheet.Cells[i + 1, 18].Value = revBy3.ToString();
 
-                            worksheet.Cells[i + 2, 19].Value = revLevel4.ToString();
-                            worksheet.Cells[i + 2, 20].Value = revDate4.ToString();
-                            worksheet.Cells[i + 2, 21].Value = revDesc4.ToString();
-                            worksheet.Cells[i + 2, 22].Value = revBy4.ToString();
+                            worksheet.Cells[i + 1, 19].Value = revLevel4.ToString();
+                            worksheet.Cells[i + 1, 20].Value = revDate4.ToString();
+                            worksheet.Cells[i + 1, 21].Value = revDesc4.ToString();
+                            worksheet.Cells[i + 1, 22].Value = revBy4.ToString();
 
                             worksheet.Cells["B3:D100"].AutoFitColumns();
                             //Add border for cells
-                            worksheet.Cells[i + 3, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 3].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 4].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 5].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 6].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 7].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 8].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 9].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 10].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 11].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 12].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 13].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 14].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 15].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 16].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 17].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 18].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 20].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 21].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
-                            worksheet.Cells[i + 3, 22].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Medium);
+                            worksheet.Cells[i + 1, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 3].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 4].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 5].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 6].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 7].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 8].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 9].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 10].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 11].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 12].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 13].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 14].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 15].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 16].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 17].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 18].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 20].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 21].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                            worksheet.Cells[i + 1, 22].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
 
                             tr.Commit();
                             tr.Dispose();
@@ -305,7 +311,8 @@ namespace UpdateAttribute
                     FileInfo excelFile = new FileInfo(excelFilePath);
                     excelPackage.SaveAs(excelFile);
                     ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
-                    MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts");
+                    MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    trans.Dispose();
                     System.Diagnostics.Process.Start(excelFilePath);
                 }
             }
