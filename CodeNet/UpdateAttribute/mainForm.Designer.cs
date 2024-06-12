@@ -28,18 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.lblLoading = new System.Windows.Forms.Label();
+            this.progressBarUpdateInFor = new System.Windows.Forms.ProgressBar();
+            this.btnUpdateInfor = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataDrawingGrid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.cbbTitleBlockName = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSelectExcel = new System.Windows.Forms.Button();
             this.txtExcelPath = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.progressBarUpdateInFor = new System.Windows.Forms.ProgressBar();
+            this.timerUpdateInfor = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -60,13 +63,14 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.lblLoading);
             this.tabPage1.Controls.Add(this.progressBarUpdateInFor);
-            this.tabPage1.Controls.Add(this.btnUpdate);
+            this.tabPage1.Controls.Add(this.btnUpdateInfor);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.cbbTitleBlockName);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnSelectExcel);
             this.tabPage1.Controls.Add(this.txtExcelPath);
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
@@ -76,27 +80,45 @@
             this.tabPage1.Text = "Update Information";
             this.tabPage1.ToolTipText = "Update information of project";
             // 
-            // btnUpdate
+            // lblLoading
             // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblLoading.AutoSize = true;
+            this.lblLoading.Location = new System.Drawing.Point(805, 437);
+            this.lblLoading.Name = "lblLoading";
+            this.lblLoading.Size = new System.Drawing.Size(72, 18);
+            this.lblLoading.TabIndex = 17;
+            this.lblLoading.Text = "Loading...";
+            // 
+            // progressBarUpdateInFor
+            // 
+            this.progressBarUpdateInFor.Location = new System.Drawing.Point(18, 430);
+            this.progressBarUpdateInFor.MarqueeAnimationSpeed = 1000;
+            this.progressBarUpdateInFor.Name = "progressBarUpdateInFor";
+            this.progressBarUpdateInFor.Size = new System.Drawing.Size(761, 33);
+            this.progressBarUpdateInFor.TabIndex = 15;
+            // 
+            // btnUpdateInfor
+            // 
+            this.btnUpdateInfor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(897, 425);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(124, 45);
-            this.btnUpdate.TabIndex = 14;
-            this.btnUpdate.Text = "UPDATE";
-            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdateInfor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnUpdateInfor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateInfor.Location = new System.Drawing.Point(897, 424);
+            this.btnUpdateInfor.Name = "btnUpdateInfor";
+            this.btnUpdateInfor.Size = new System.Drawing.Size(124, 45);
+            this.btnUpdateInfor.TabIndex = 14;
+            this.btnUpdateInfor.Text = "UPDATE";
+            this.btnUpdateInfor.UseVisualStyleBackColor = false;
+            this.btnUpdateInfor.Click += new System.EventHandler(this.btnUpdateInfor_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dataDrawingGrid);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 63);
+            this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1015, 349);
+            this.groupBox1.Size = new System.Drawing.Size(1015, 348);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TitleBlock Data";
@@ -127,7 +149,7 @@
             "STN_TITLE BOX 11x17",
             "STN_TITLE BOX 8.5x11",
             "STN_TITLE BOX 36x42"});
-            this.cbbTitleBlockName.Location = new System.Drawing.Point(846, 15);
+            this.cbbTitleBlockName.Location = new System.Drawing.Point(846, 14);
             this.cbbTitleBlockName.Name = "cbbTitleBlockName";
             this.cbbTitleBlockName.Size = new System.Drawing.Size(175, 26);
             this.cbbTitleBlockName.TabIndex = 11;
@@ -142,19 +164,20 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Excel path";
             // 
-            // button1
+            // btnSelectExcel
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnSelectExcel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.LightGreen;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(557, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 30);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Select Excel";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnSelectExcel.BackColor = System.Drawing.Color.LightGreen;
+            this.btnSelectExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnSelectExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectExcel.Location = new System.Drawing.Point(557, 13);
+            this.btnSelectExcel.Name = "btnSelectExcel";
+            this.btnSelectExcel.Size = new System.Drawing.Size(124, 30);
+            this.btnSelectExcel.TabIndex = 9;
+            this.btnSelectExcel.Text = "Select Excel";
+            this.btnSelectExcel.UseVisualStyleBackColor = false;
+            this.btnSelectExcel.Click += new System.EventHandler(this.btnSelectExcel_Click_1);
             // 
             // txtExcelPath
             // 
@@ -164,7 +187,7 @@
             this.txtExcelPath.Location = new System.Drawing.Point(88, 14);
             this.txtExcelPath.Multiline = true;
             this.txtExcelPath.Name = "txtExcelPath";
-            this.txtExcelPath.Size = new System.Drawing.Size(445, 28);
+            this.txtExcelPath.Size = new System.Drawing.Size(445, 27);
             this.txtExcelPath.TabIndex = 8;
             this.txtExcelPath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -178,21 +201,22 @@
             this.tabPage2.Text = "Update Revision";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // progressBarUpdateInFor
+            // timerUpdateInfor
             // 
-            this.progressBarUpdateInFor.Location = new System.Drawing.Point(18, 431);
-            this.progressBarUpdateInFor.Name = "progressBarUpdateInFor";
-            this.progressBarUpdateInFor.Size = new System.Drawing.Size(761, 33);
-            this.progressBarUpdateInFor.TabIndex = 15;
+            this.timerUpdateInfor.Tick += new System.EventHandler(this.timerUpdateInfor_Tick);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1043, 518);
+            this.ClientSize = new System.Drawing.Size(1042, 517);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "mainForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Title Block Tool - Simpson Strong Tie - CSS Team - 2024";
             this.tabControl1.ResumeLayout(false);
@@ -208,15 +232,17 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnUpdateInfor;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataDrawingGrid;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbbTitleBlockName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSelectExcel;
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ProgressBar progressBarUpdateInFor;
+        private System.Windows.Forms.Label lblLoading;
+        private System.Windows.Forms.Timer timerUpdateInfor;
     }
 }

@@ -28,6 +28,9 @@ namespace UpdateAttribute
         [CommandMethod("EXPTTBTOEXCEL")]
         public void ExportExcelFile()
         {
+            ProcessForm pF = new ProcessForm();
+            Application.ShowModelessDialog(pF);
+            
             var doc = AcAp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
             var ed = doc.Editor;
@@ -305,20 +308,20 @@ namespace UpdateAttribute
 
                         }
                     }
-                    var trans = db.TransactionManager.StartTransaction();
-                    DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
-                    string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock.xlsx");
+                    //var trans = db.TransactionManager.StartTransaction();
+                    //DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
+                    string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock Information.xlsx");
                     FileInfo excelFile = new FileInfo(excelFilePath);
                     excelPackage.SaveAs(excelFile);
                     ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
-                    MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    trans.Dispose();
-                    System.Diagnostics.Process.Start(excelFilePath);
+                    //MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //trans.Dispose();
+                    //System.Diagnostics.Process.Start(excelFilePath);
                 }
             }
             catch
             {
-                MessageBox.Show("Somethings wrong. Please try again");
+                MessageBox.Show("Somethings wrong. Please try again", "Export data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         
         }
@@ -520,7 +523,7 @@ namespace UpdateAttribute
         public void CallForm()
         {
             mainForm mf = new mainForm();
-            mf.Show();
+            Application.ShowModelessDialog(mf);
         }
         [CommandMethod("UA")]
         public void UpdateAttribute()

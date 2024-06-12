@@ -16,7 +16,6 @@ D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bi
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bin\x64\Debug\System.Memory.xml
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bin\x64\Debug\System.Numerics.Vectors.xml
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.xml
-D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.csproj.AssemblyReference.cache
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.csproj.ResolveComReference.cache
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.mainForm.resources
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.Properties.Resources.resources
@@ -57,3 +56,5 @@ D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\x64\Deb
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\x64\Debug\System.Numerics.Vectors.xml
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.csproj.CopyComplete
+D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.ProcessForm.resources
+D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\x64\Debug\UpdateAttribute.csproj.AssemblyReference.cache

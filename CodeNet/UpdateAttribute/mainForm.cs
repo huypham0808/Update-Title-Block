@@ -20,16 +20,9 @@ namespace UpdateAttribute
             InitializeComponent();
             dataDrawingGrid.AllowUserToAddRows = false;
             dataDrawingGrid.AllowUserToDeleteRows = false;
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofD = new OpenFileDialog();
-            ofD.Filter = "Excel Files(*.xlsx)|*.xlsx|All Files(*.*)|*.*";
-            ofD.Multiselect = false;
-            if (ofD.ShowDialog() != DialogResult.OK) return;
-            string filePath = ofD.FileName;
-            txtExcelPath.Text = filePath;
-            LoadDataFromExcel(filePath, ".xlsx", "yes");
+            dataDrawingGrid.RowHeadersVisible = false;
+            dataDrawingGrid.EnableHeadersVisualStyles = false;
+            dataDrawingGrid.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.Orange;
         }
         public void LoadDataFromExcel(string fpath, string ext, string hdr)
         {
@@ -47,6 +40,7 @@ namespace UpdateAttribute
                 oda.Fill(dt);
                 excelcon.Close();
                 dataDrawingGrid.DataSource = dt;
+                dataDrawingGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             }
             catch
             {
@@ -54,17 +48,42 @@ namespace UpdateAttribute
             }
             
         }
-        private void btnUpdate_Click(object sender, EventArgs e)
+        public string TitleBlockName()
         {
+            string titleBlockName = string.Empty;
+            string gender = cbbTitleBlockName.SelectedValue?.ToString();
+            if(!string.IsNullOrEmpty(gender))
+            {
+                titleBlockName = gender;
+            }
+            else
+            {
+                titleBlockName = "STN_TITLE BOX 11x17";
+            }
+            return titleBlockName;
+        }
+        private void btnSelectExcel_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog ofD = new OpenFileDialog();
+            ofD.Filter = "Excel Files(*.xlsx)|*.xlsx|All Files(*.*)|*.*";
+            ofD.Multiselect = false;
+            if (ofD.ShowDialog() != DialogResult.OK) return;
+            string filePath = ofD.FileName;
+            txtExcelPath.Text = filePath;
+            LoadDataFromExcel(filePath, ".xlsx", "yes");
+        }
+        private void btnUpdateInfor_Click(object sender, EventArgs e)
+        {
+            timerUpdateInfor.Start();
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
 
             try
             {
-                using(Transaction tr = db.TransactionManager.StartTransaction())
+                using (Transaction tr = db.TransactionManager.StartTransaction())
                 {
-                    foreach(DataGridViewRow row in dataDrawingGrid.Rows)
-                    {                       
+                    foreach (DataGridViewRow row in dataDrawingGrid.Rows)
+                    {
                         string layoutName = row.Cells["Layout Name"].Value.ToString();
                         string layoutIdString = row.Cells["Layout ID"].Value.ToString();
                         string projectTitle1 = row.Cells["PROJECT_TITLE1"].Value.ToString();
@@ -127,12 +146,11 @@ namespace UpdateAttribute
 
                                             if (attribute != null)
                                             {
-                                                //double widthFactor1a;
                                                 switch (attribute.Tag.ToUpper())
                                                 {
                                                     case "PROJECT_TITLE1":
                                                         attribute.TextString = projectTitle1.Trim();
-                                                        //attribute.WidthFactor = widthFactor1a;
+                                                        attribute.WidthFactor = Double.Parse(widthFactorString1);
                                                         break;
                                                     case "SHEET_TITLE":
                                                         attribute.TextString = projectTitle2.Trim();
@@ -205,22 +223,13 @@ namespace UpdateAttribute
             finally
             {
                 MessageBox.Show("Update successfully !", "Update TitleBlock", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                //this.Close();
             }
         }
-        public string TitleBlockName()
+
+        private void timerUpdateInfor_Tick(object sender, EventArgs e)
         {
-            string titleBlockName = string.Empty;
-            string gender = cbbTitleBlockName.SelectedValue?.ToString();
-            if(!string.IsNullOrEmpty(gender))
-            {
-                titleBlockName = gender;
-            }
-            else
-            {
-                titleBlockName = "STN_TITLE BOX 11x17";
-            }
-            return titleBlockName;
+            progressBarUpdateInFor.PerformStep();
         }
         //private Task ProcessDate
     }
