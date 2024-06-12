@@ -525,100 +525,14 @@ namespace UpdateAttribute
             mainForm mf = new mainForm();
             Application.ShowModelessDialog(mf);
         }
-        [CommandMethod("UA")]
-        public void UpdateAttribute()
+        [CommandMethod ("CallExportTTB")]
+        public void CallExportForm()
         {
-            Document doc = Application.DocumentManager.MdiActiveDocument;
-            Database db = doc.Database;
-            Editor ed = doc.Editor;
-
-            PromptResult pr = ed.GetString("\nEnter new value for attribute: ");
-            if (pr.Status != PromptStatus.OK) return;
-            string attbValue = pr.StringResult.ToUpper();
-
-            //if (pr.Status != PromptStatus.OK) return;
-            //string blockName = pr.StringResult.ToUpper();
-            string blockName = "STN_TITLE BOX 11x17";
-
-            //pr = ed.GetString("\nEnter tag of attribute to update");
-            //if (pr.Status != PromptStatus.OK) return;
-            //string attbName = pr.StringResult.ToUpper();
-            string attbName = "PROJECT_NAME";
-
-            //pr = ed.GetString("\nEnter new value for attribute");
-
-
-            UpdateAttributeInDatabase(db, blockName, attbName, attbValue);
-
+            ProcessForm pcf = new ProcessForm();
+            pcf.ShowDialog();
+            //Application.ShowModelessDialog(pcf);
         }
-        private void UpdateAttributeInDatabase(Database db, string blockName, string attbName, string attbValue)
-        {
-            Document doc = Application.DocumentManager.MdiActiveDocument;            
-            Editor ed = doc.Editor;
 
-            ObjectId msId, psId;
-            Transaction tr = db.TransactionManager.StartTransaction();
-            using (tr)
-            {
-                BlockTable bt = (BlockTable)tr.GetObject(db.BlockTableId, OpenMode.ForRead);
-                msId = bt[BlockTableRecord.ModelSpace];
-                psId = bt[BlockTableRecord.PaperSpace];
-                tr.Commit();
-            }
-            int msCount = UpdateAttributeInBlock(msId, blockName, attbName, attbValue);
-            int psCount = UpdateAttributeInBlock(psId, blockName, attbName, attbValue);
-            ed.Regen();
-            ed.WriteMessage("\nProcessing file: " + db.Filename);
-            ed.WriteMessage("\nUpdated {0} instance{1} of" + "attribute {2} in the modelspace.", msCount, msCount == 1 ? "" : "s", attbName);
-            ed.WriteMessage("\nUpdated {0} instance{1} of" + "attribute {2} in the paperspace.", psCount, psCount == 1 ? "" : "s", attbName);
-        }
-        private int UpdateAttributeInBlock(ObjectId btrId, string blockName, string attbName, string attbValue)
-        {
-            int changedCount = 0;
-
-            Document doc = Application.DocumentManager.MdiActiveDocument;
-            Database db = doc.Database;
-            Editor ed = doc.Editor;
-
-            Transaction tr = db.TransactionManager.StartTransaction();
-            using (tr)
-            {
-                BlockTableRecord btr = (BlockTableRecord)tr.GetObject(btrId, OpenMode.ForRead);
-                foreach(ObjectId entId in btr)
-                {
-                    Entity ent = tr.GetObject(entId, OpenMode.ForRead) as Entity;
-                    if(ent != null)
-                    {
-                        BlockReference br = ent as BlockReference;
-                        if(br != null)
-                        {
-                            BlockTableRecord bd = (BlockTableRecord)tr.GetObject(br.BlockTableRecord, OpenMode.ForRead);
-                            if(bd.Name.ToUpper() == blockName)
-                            {
-                                foreach(ObjectId arId in br.AttributeCollection)
-                                {
-                                    DBObject obj = tr.GetObject(arId, OpenMode.ForRead);
-                                    AttributeReference ar = obj as AttributeReference;
-                                    if(ar != null)
-                                    {
-                                        if(ar.Tag.ToUpper() == attbName)
-                                        {
-                                            ar.UpgradeOpen();
-                                            ar.TextString = attbValue;
-                                            ar.DowngradeOpen();
-                                            changedCount++;
-                                        }
-                                    }
-                                }
-                            }
-                            changedCount += UpdateAttributeInBlock(br.BlockTableRecord, blockName, attbName, attbValue);
-                        }
-                    }
-                }
-                tr.Commit();
-            }
-            return changedCount;
-        }
     }
     
 }

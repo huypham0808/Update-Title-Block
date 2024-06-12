@@ -50,7 +50,7 @@ namespace UpdateAttribute
         }
         public string TitleBlockName()
         {
-            string titleBlockName = string.Empty;
+            string titleBlockName;
             string gender = cbbTitleBlockName.SelectedValue?.ToString();
             if(!string.IsNullOrEmpty(gender))
             {
@@ -77,7 +77,6 @@ namespace UpdateAttribute
             timerUpdateInfor.Start();
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
-
             try
             {
                 using (Transaction tr = db.TransactionManager.StartTransaction())
