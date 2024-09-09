@@ -28,8 +28,8 @@ namespace UpdateAttribute
         [CommandMethod("EXPTTBTOEXCEL")]
         public void ExportExcelFile()
         {
-            ProcessForm pF = new ProcessForm();
-            Application.ShowModelessDialog(pF);
+            //ProcessForm pF = new ProcessForm();
+            //.ShowModelessDialog(pF);
             
             var doc = AcAp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
@@ -308,15 +308,15 @@ namespace UpdateAttribute
 
                         }
                     }
-                    //var trans = db.TransactionManager.StartTransaction();
-                    //DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
+                    var trans = db.TransactionManager.StartTransaction();
+                    DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
                     string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock Information.xlsx");
                     FileInfo excelFile = new FileInfo(excelFilePath);
                     excelPackage.SaveAs(excelFile);
                     ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
-                    //MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //trans.Dispose();
-                    //System.Diagnostics.Process.Start(excelFilePath);
+                    MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    trans.Dispose();
+                    System.Diagnostics.Process.Start(excelFilePath);
                 }
             }
             catch
