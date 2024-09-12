@@ -21,6 +21,7 @@ namespace UpdateAttribute
 {
     public partial class ProcessForm : Form
     {
+        public int s = 0;
         public ProcessForm()
         {
             InitializeComponent();
@@ -28,30 +29,41 @@ namespace UpdateAttribute
 
         private void timerFormProcess_Tick(object sender, EventArgs e)
         {
-            var doc = AcAp.DocumentManager.MdiActiveDocument;
-            var db = doc.Database;
-            var ed = doc.Editor;
-            var trans = db.TransactionManager.StartTransaction();
-            DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
-
-            progressBarForm.Increment(1);
-            if(progressBarForm.Value == progressBarForm.Maximum)
+            //var doc = AcAp.DocumentManager.MdiActiveDocument;
+            //var db = doc.Database;
+            //var ed = doc.Editor;
+            //var trans = db.TransactionManager.StartTransaction();
+            //DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
+            progressBarForm.Value = 1;
+            s++;
+            lblPercent.Text = s + "%";
+            //progressBarForm.Increment(1);
+            if(progressBarForm.Value == 100)
             {
-                timerFormProcess.Enabled = false;
-                lblLoadingStatus.Text = "Export Successfully " + ((layoutDic.Count) - 1).ToString() + " layouts";
+                //timerFormProcess.Enabled = false;
+                timerFormProcess.Stop();
+                //lblLoadingStatus.Text = "Export Successfully " + ((layoutDic.Count) - 1).ToString() + " layouts";
+                lblLoadingStatus.Text = "Export Successfully ";
                 lblLoadingStatus.ForeColor = Color.Green;
             }
             //this.Hide();
         }
         private void btnCloseProcess_Click(object sender, EventArgs e)
         {
-            var excelPackage = new ExcelPackage();
-            string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock.xlsx");
-             FileInfo excelFile = new FileInfo(excelFilePath);
-            excelPackage.SaveAs(excelFile);
-            //MessageBox.Show("Export Successfully", "Export Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            System.Diagnostics.Process.Start(excelFilePath);
-            this.Close();
+            string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock Information.xlsx"); 
+            DialogResult confirmPopUp = MessageBox.Show("Export Successfully", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (confirmPopUp == DialogResult.OK)
+            {
+                System.Diagnostics.Process.Start(excelFilePath);
+                this.Close();
+            }
+            else
+            {
+                this.Close();
+            }
+            //MessageBox.Show("Export Successfully", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            //System.Diagnostics.Process.Start(excelFilePath);
+            //this.Close();
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)

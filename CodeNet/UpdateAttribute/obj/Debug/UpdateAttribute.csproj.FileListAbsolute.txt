@@ -75,7 +75,6 @@ D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bi
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\bin\Debug\System.Memory.xml
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.AssemblyReference.cache
 D:\4.PERSONAL\5.CODING\18.CAD_Tool\Update-Title-Block\CodeNet\UpdateAttribute\obj\Debug\UpdateAttribute.csproj.ResolveComReference.cache
-D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\Debug\start.scr
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\Debug\UpdateTileBlock.dll
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\Debug\UpdateTileBlock.pdb
 D:\HUY\7.NET C SHARP\CAD_API\UpdateAttribute\CodeNet\UpdateAttribute\bin\Debug\EPPlus.dll

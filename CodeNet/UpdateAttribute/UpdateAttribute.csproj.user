@@ -11,4 +11,7 @@
     <StartArguments>/nologo /b "start.scr"</StartArguments>
     <StartAction>Program</StartAction>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments />
+  </PropertyGroup>
 </Project>
