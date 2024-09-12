@@ -21,10 +21,10 @@ namespace UpdateAttribute
 {
     public partial class ProcessForm : Form
     {
-        public int s = 0;
         public ProcessForm()
         {
             InitializeComponent();
+            timerFormProcess.Enabled = false;
         }
 
         private void timerFormProcess_Tick(object sender, EventArgs e)
@@ -34,10 +34,11 @@ namespace UpdateAttribute
             //var ed = doc.Editor;
             //var trans = db.TransactionManager.StartTransaction();
             //DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
-            progressBarForm.Value = 1;
-            s++;
-            lblPercent.Text = s + "%";
-            //progressBarForm.Increment(1);
+            //progressBarForm.Value = 1;
+            //s++;
+            //lblPercent.Text = s + "%";
+            progressBarForm.Increment(1);
+            lblPercent.Text = progressBarForm.Value.ToString() + "%";
             if(progressBarForm.Value == 100)
             {
                 //timerFormProcess.Enabled = false;
@@ -67,11 +68,7 @@ namespace UpdateAttribute
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)
-        {
-            //ProcessForm pF = new ProcessForm();
-            //Application.ShowModelessDialog(pF);
-            //progressBarForm.Increment(1);
-            
+        {       
             var doc = AcAp.DocumentManager.MdiActiveDocument;
             var db = doc.Database;
             var ed = doc.Editor;

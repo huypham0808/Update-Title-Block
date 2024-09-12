@@ -47,7 +47,7 @@
             // 
             // timerFormProcess
             // 
-            this.timerFormProcess.Enabled = true;
+            this.timerFormProcess.Interval = 10;
             this.timerFormProcess.Tick += new System.EventHandler(this.timerFormProcess_Tick);
             // 
             // btnCloseProcess
