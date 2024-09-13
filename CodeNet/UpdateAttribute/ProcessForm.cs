@@ -16,6 +16,8 @@ using System.Windows.Forms;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 using System.Runtime.InteropServices;
 using _Excel = Microsoft.Office.Interop.Excel;
+using UpdateAttribute.Utilities;
+using Exception = Autodesk.AutoCAD.Runtime.Exception;
 
 namespace UpdateAttribute
 {
@@ -38,7 +40,7 @@ namespace UpdateAttribute
             //s++;
             //lblPercent.Text = s + "%";
             progressBarForm.Increment(1);
-            lblPercent.Text = progressBarForm.Value.ToString() + "%";
+            //lblPercent.Text = progressBarForm.Value.ToString() + "%";
             if(progressBarForm.Value == 100)
             {
                 //timerFormProcess.Enabled = false;
@@ -103,29 +105,17 @@ namespace UpdateAttribute
                     worksheet.Cells["A1:V1"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#df4907"));
                     worksheet.Cells["A1:V1"].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#fff"));
                     worksheet.Cells["A1:V1"].Style.Font.Bold = true;
-                    worksheet.Cells["A1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["B1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["C1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["D1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["E1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["F1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["G1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["H1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["I1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["J1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["K1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["L1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["M1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["N1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["O1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["P1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["Q1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["R1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["S1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["T1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["U1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    worksheet.Cells["V1"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
 
+                    string startCol = "A";
+                    string endCol = "V";
+                    int startColIndex = FunctionHandleExcel.ExcelColumnToIndex(startCol);
+                    int endColIndex = FunctionHandleExcel.ExcelColumnToIndex(endCol);
+
+                    for(int colIndex = startColIndex; colIndex <=endColIndex; colIndex++)
+                    {
+                        string cellAdress = FunctionHandleExcel.IndexToExcelColumn(colIndex) + "1";
+                        worksheet.Cells[cellAdress].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    }
 
                     worksheet.Cells["A1"].Value = "Layout Name";
                     worksheet.Cells["A1"].AutoFitColumns();
@@ -287,13 +277,14 @@ namespace UpdateAttribute
                                         }
                                     }
                                 }
+                                lblPercent.Text = progressBarForm.Value.ToString() + "%";
                             }
                             //DBDictionary layoutDic = tr.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
                             // Write layout name, layout ID, and attribute values to Excel worksheet
                             worksheet.Cells[i + 1, 1].Value = layout.LayoutName;
                             worksheet.Cells[i + 1, 2].Value = "Handle: " + layoutId.Handle.ToString();
-                            worksheet.Cells[i + 1, 3].Value = projectTitle1;
-                            worksheet.Cells[i + 1, 4].Value = projectTitle2;
+                            worksheet.Cells[i + 1, 3].Value = projectTitle1.ToUpper();
+                            worksheet.Cells[i + 1, 4].Value = projectTitle2.ToUpper();
                             worksheet.Cells[i + 1, 5].Value = widthFactorTitle1.ToString();
                             worksheet.Cells[i + 1, 6].Value = widthFactorTitle2.ToString();
 
@@ -319,29 +310,12 @@ namespace UpdateAttribute
 
                             worksheet.Cells["B3:D100"].AutoFitColumns();
                             //Add border for cells
-                            worksheet.Cells[i + 1, 1].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 2].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 3].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 4].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 5].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 6].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 7].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 8].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 9].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 10].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 11].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 12].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 13].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 14].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 15].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 16].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 17].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 18].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 19].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 20].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 21].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                            worksheet.Cells[i + 1, 22].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-
+                            int startColum = 1;
+                            int endColumn = 22;
+                            for (int column = startColum; column <=endColumn; column++)
+                            {
+                                worksheet.Cells[i + 1, column].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin); 
+                            }
                             tr.Commit();
                             tr.Dispose();
 
@@ -349,18 +323,19 @@ namespace UpdateAttribute
                     }
                     //var trans = db.TransactionManager.StartTransaction();
                     //DBDictionary layoutDic = trans.GetObject(db.LayoutDictionaryId, OpenMode.ForRead) as DBDictionary;
-                    string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock Information.xlsx");
-                    FileInfo excelFile = new FileInfo(excelFilePath);
-                    excelPackage.SaveAs(excelFile);
-                    ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
+                    //string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "TitleBlock Information.xlsx");
+                    //FileInfo excelFile = new FileInfo(excelFilePath);
+                    //excelPackage.SaveAs(excelFile);
+                    //ed.WriteMessage($"\nLayout attributes exported to: {excelFilePath}");
                     //MessageBox.Show("Export successfully total " + ((layoutDic.Count) - 1).ToString() + " layouts", "Layout Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //trans.Dispose();
                     //System.Diagnostics.Process.Start(excelFilePath);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Somethings wrong. Please try again", "Export data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Somethings wrong. Please try again", "Export data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString());
             }
         }
     }
